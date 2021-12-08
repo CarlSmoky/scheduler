@@ -5,7 +5,8 @@ import { action } from "@storybook/addon-actions";
 import DayListItem from "../src/components/DayListItem";
 import DayList from "../src/components/DayList";
 import InterviewerListItem from "../src/components/InterviewerListItem";
-import InterviewerList from "../src/components/InterviewerList"
+import InterviewerList from "../src/components/InterviewerList";
+import Appointment from "../src/components/Appointment/index.js";
 
 import "index.scss";
 
@@ -57,18 +58,18 @@ const days = [
 ];
 
 storiesOf("DayList", module)
-.addParameters({
-  backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
-})
-.add("Monday", () => (
-  <DayList days={days} value={"Monday"} onChange={action("setDay")} />
-))
-.add("Tuesday", () => (
-  <DayList days={days} value={"Tuesday"} onChange={action("setDay")} />
-))
-.add("Wednesday", () => (
-  <DayList days={days} value={"Wednesday"} onChange={action("setDay")} />
-));
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
+  })
+  .add("Monday", () => (
+    <DayList days={days} value={"Monday"} onChange={action("setDay")} />
+  ))
+  .add("Tuesday", () => (
+    <DayList days={days} value={"Tuesday"} onChange={action("setDay")} />
+  ))
+  .add("Wednesday", () => (
+    <DayList days={days} value={"Wednesday"} onChange={action("setDay")} />
+  ));
 
 
 const interviewer = {
@@ -134,3 +135,9 @@ storiesOf("InterviewerList", module)
     />
   ));
 
+storiesOf("Appointment", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Appointment with Time", () => <Appointment time="12pm" />);
