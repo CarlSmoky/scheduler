@@ -7,6 +7,13 @@ import DayList from "../src/components/DayList";
 import InterviewerListItem from "../src/components/InterviewerListItem";
 import InterviewerList from "../src/components/InterviewerList";
 import Appointment from "../src/components/Appointment/index.js";
+import Header from "../src/components/Appointment/Header.js";
+import Empty from "../src/components/Appointment/Empty.js";
+import Show from "../src/components/Appointment/Show.js";
+import Confirm from "../src/components/Appointment/Confirm.js";
+import Status from "../src/components/Appointment/Status.js";
+import Error from "../src/components/Appointment/Error.js";
+import Form from "../src/components/Appointment/Form.js";
 
 import "index.scss";
 
@@ -140,4 +147,15 @@ storiesOf("Appointment", module)
     backgrounds: [{ name: "white", value: "#fff", default: true }]
   })
   .add("Appointment", () => <Appointment />)
-  .add("Appointment with Time", () => <Appointment time="12pm" />);
+  .add("Appointment with Time", () => <Appointment time="12pm" />)
+  .add("Header", () => <Header time="12pm"/>)
+  .add("Empty", () => <Empty onAdd={action("onAdd")}/>)
+  .add("Show", () => <Show onEdit={action("onEdit")} onDelete={action("onDelete")}/>)
+  .add("Confirm", () => <Confirm onConfirm={action("onConfirm")} onCancel={action("onCancel")}/>)
+  .add("Status", () => <Status message="Deleteing" />)
+  .add("Error", () => <Error message="Could not delete appointment." onClose={action("onClose")}/>)
+  // .add("Edit", () => <Form student="Kaoru" interviewer={0} interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")}/>)
+  // .add("Create", () => <Create interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")}/>)
+
+
+  
