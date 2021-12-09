@@ -8,11 +8,13 @@ export default function Appointment(props) {
 
 
   const appointment = props.interview ? 
-    <><Header time={props.time} /><Show student={props.student} interviewer={props.interviewer} /></> : 
-    <><Header time={props.time} /><Empty /></> ;
+    <Show student={props.student} interview={props.interview} /> : 
+    <Empty /> ;
 
 
   return (
-    <article className="appointment">{appointment}</article>
+    <article className="appointment">
+      <><Header time={props.time} ></Header>{appointment}</>
+    </article>
   )
 }
