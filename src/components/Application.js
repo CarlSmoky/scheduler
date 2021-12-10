@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
+import axios from "axios";
 
 const days = [
   {
