@@ -1,4 +1,4 @@
-import { getAppointmentsForDay } from "helpers/selectors";
+import getAppointmentsForDay  from "./selectors";
 
 const state = {
   days: [
