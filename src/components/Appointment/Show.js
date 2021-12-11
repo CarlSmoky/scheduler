@@ -2,8 +2,12 @@ import React from "react";
 
 export default function Show(props) {
   const student = props.interview ? props.interview.student : "";
-  const interviewer = props.interview ? props.interview.interviewer.name : ""
-  
+  // const interviewer = props.interview  ?  props.interview.interviewer.name : ""
+
+  let interviewer = "";
+  if (props.interview && props.interviewer) {
+    interviewer = props.interviewer.name;
+  } 
   
   return (
     <main className="appointment__card appointment__card--show">
