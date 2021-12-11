@@ -15,7 +15,7 @@ const appointments = [
     time: "1pm",
     interview: {
       student: "Lydia Miller-Jones@",
-      interviewer:{
+      interviewer: {
         id: 3,
         name: "Sylvia Palmer",
         avatar: "https://i.imgur.com/LpaY82x.png",
@@ -31,7 +31,7 @@ const appointments = [
     time: "3pm",
     interview: {
       student: "Archie Andrews",
-      interviewer:{
+      interviewer: {
         id: 4,
         name: "Cohana Roy",
         avatar: "https://i.imgur.com/FK8V841.jpg",
@@ -46,17 +46,36 @@ const appointments = [
 
 
 export default function Application(props) {
-  const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState([]);
-  console.log(`day: ${day}`);
 
-useEffect(() => {
-  const testURL = `http://localhost:8001/api/days`;
-  axios.get(testURL).then(response => {
-    setDays(response.data)
-    console.log( "string: ", response);
+  // const [day, setDay] = useState('Monday');
+  // const [days, setDays] = useState([]);
+
+
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    // you may put the line below, but will have to remove/comment hardcoded appointments variable
+    appointments: {}
   });
-}, []);
+
+  const setDay = day => setState({ ...state, day });
+
+  const setDays = (days) => {
+    // setState({...state, days});
+    setState(prev => ({ ...prev, days }));
+}
+
+
+
+
+
+  useEffect(() => {
+    const testURL = `http://localhost:8001/api/days`;
+    axios.get(testURL).then(response => {
+      setDays(response.data)
+      console.log("string: ", response);
+    });
+  }, []);
 
 
 
@@ -85,8 +104,8 @@ useEffect(() => {
           setDay={day => console.log(day)}
           /> */}
           <DayList
-            days={days}
-            value={day}
+            days={state.days}
+            value={state.day}
             onChange={setDay}
           />
         </nav>
