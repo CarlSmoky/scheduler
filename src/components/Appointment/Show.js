@@ -1,18 +1,12 @@
 import React from "react";
 
 export default function Show(props) {
-  const student = props.interview ? props.interview.student : "";
-  // const interviewer = props.interview  ?  props.interview.interviewer.name : ""
-
-  let interviewer = "";
-  if (props.interview && props.interviewer) {
-    interviewer = props.interviewer.name;
-  } 
+  const interviewer = props.interviewer  ?  props.interviewer.name : ""
   
   return (
     <main className="appointment__card appointment__card--show">
       <section className="appointment__card-left">
-        <h2 className="text--regular">{student}</h2>
+        <h2 className="text--regular">{props.student}</h2>
         <section className="interviewer">
           <h4 className="text--light">Interviewer</h4>
           <h3 className="text--regular">{interviewer}</h3>
