@@ -5,6 +5,8 @@ import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
 import useVisualMode from "../../hooks/useVisualMode";
+import {getInterviewersForDay} from "../../helpers/selectors";
+
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -33,7 +35,7 @@ export default function Appointment(props) {
         )}
         {mode === CREATE && (
           <Form 
-            interviewers={[]} 
+            interviewers={getInterviewersForDay(props.state, props.state.day)} 
             // onSave={console.log("onSave")} 
             onCancel={() => back()}
           />
