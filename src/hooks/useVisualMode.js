@@ -6,7 +6,7 @@ export default function useVisualMode (initial) {
 
   function transition(newMode, replace = false) {
     setMode(newMode);
-    const oldHistory = history;
+    const oldHistory = [...history];
 
     if (replace) {
       oldHistory.pop()
@@ -19,7 +19,7 @@ export default function useVisualMode (initial) {
   function back() {
     if (history.length <= 1) { return }
 
-    const oldHistory = history;
+    const oldHistory = [...history];
     oldHistory.pop();
     setHistory(oldHistory);
     const newLast = oldHistory[oldHistory.length - 1];
