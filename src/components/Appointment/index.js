@@ -16,13 +16,17 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
+
+  function save(name, interviewer) {
+    // this gets called, but the name and interviewer are undefined
+    // console.log("SAVE", name, interviewer);
+    const interview = {
+      student: name,
+      interviewer
+    };
+    props.bookInterview(props.id, interview);
+  }
   
-
-  // const appointment = props.interview ? 
-  //   <Show student={props.student} interview={props.interview} /> : 
-  //   <Empty /> ;
-
-
   return (
     <article className="appointment">
       <><Header time={props.time} ></Header>
@@ -38,6 +42,7 @@ export default function Appointment(props) {
             interviewers={getInterviewersForDay(props.state, props.state.day)} 
             // onSave={console.log("onSave")} 
             onCancel={() => back()}
+            onSave={save}
           />
         )}
       </>
