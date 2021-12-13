@@ -32,13 +32,71 @@ export default function Application(props) {
       const days = all[0].data;
       const appointments = all[1].data;
       const interviewers = all[2].data;
-      setState({...state, days, appointments,interviewers});
+      setState({...state, days, appointments, interviewers});
       console.log(interviewers);
     });
   }, []);
   
   function bookInterview(id, interview) {
+    // update our appointment slot with new interview
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }  // we are overwriting whatever was here before
+    };
+    
+    // add our updated appointment to the appointments object
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment // overwrite the one appointment matching our id
+    };
+    
+    // we update state with the appointments
+    setState({
+      ...state,
+      appointments
+    });
+    
     console.log(id, interview);
+    // PUT /api/appointments/:id 
+    //Returning from bookInterview
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, {interview})
+      .then(response => {
+        console.log(response)
+        setState({...state, appointments})
+      })
+      .catch(error => console.log(error));
+
+  }
+
+  function cancelInterview (id) {
+    // update our appointment slot with new interview
+    const appointment = {
+      ...state.appointments[id],
+      interview: null  // we are overwriting whatever was here before
+    };
+    
+    // add our updated appointment to the appointments object
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment // overwrite the one appointment matching our id
+    };
+    
+    // we update state with the appointments
+    setState({
+      ...state,
+      appointments
+    });
+    
+    console.log("canelling,", id);
+    // PUT /api/appointments/:id 
+    //Returning from bookInterview
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+      .then(response => {
+        console.log(response)
+        setState({...state, appointments})
+      })
+      .catch(error => console.log(error));
+
   }
   
   const dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -52,6 +110,7 @@ export default function Application(props) {
         interview={interview} 
         state={state} 
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
