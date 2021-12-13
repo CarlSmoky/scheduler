@@ -37,13 +37,22 @@ export default function Application(props) {
     });
   }, []);
   
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
   
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const appointmentComponents = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     return (
-      <Appointment key={appointment.id} {...appointment} interview={interview} state={state} />
+      <Appointment 
+        key={appointment.id} 
+        {...appointment} 
+        interview={interview} 
+        state={state} 
+        bookInterview={bookInterview}
+      />
     );
   });
 
@@ -71,7 +80,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {appointmentComponents}
-        <Appointment key="last" time="5pm" />
+        <Appointment key="last" time="5pm"/>
       </section>
     </main>
   );
