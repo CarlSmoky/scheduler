@@ -18,9 +18,11 @@ export default function Form(props) {
   };
 
   const save = () => {
+    // student and interviewer are ok here, but don't get passed into onSave ???
     props.onSave(student, interviewer);
   }
   
+  const changeHandler = (event) => setStudent(event.target.value);
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -32,7 +34,7 @@ export default function Form(props) {
             type="text"
             placeholder="Enter Student Name"
             value={student}
-            onChange={(event) => setStudent(event.target.value)}
+            onChange={changeHandler}
           />
         </form>
         <InterviewerList
