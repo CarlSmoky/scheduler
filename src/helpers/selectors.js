@@ -1,3 +1,6 @@
+
+// takes a day name (e.g, "Monday") and returns an array of 
+// all the appointment objects for that day
 export function getAppointmentsForDay(state, day) {
   const days = state.days;
   const appointments = Object.values(state.appointments || {} );
