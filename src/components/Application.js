@@ -63,8 +63,7 @@ export default function Application(props) {
       .then(response => {
         console.log(response)
         setState({...state, appointments})
-      })
-      .catch(error => console.log(error));
+      });
 
   }
 
@@ -81,22 +80,12 @@ export default function Application(props) {
       [id]: appointment // overwrite the one appointment matching our id
     };
     
-    // we update state with the appointments
-    setState({
-      ...state,
-      appointments
-    });
-    
-    console.log("canelling,", id);
     // PUT /api/appointments/:id 
     //Returning from bookInterview
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(response => {
-        console.log(response)
         setState({...state, appointments})
-      })
-      .catch(error => console.log(error));
-
+      });
   }
   
   const dailyAppointments = getAppointmentsForDay(state, state.day);
