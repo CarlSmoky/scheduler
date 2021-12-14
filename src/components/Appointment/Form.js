@@ -4,7 +4,7 @@ import InterviewerList from "../InterviewerList.js";
 
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewerId || null);
+  const [interviewer, setInterviewer] = useState(props.interviewer ? props.interviewer.id : null);
 
 
   const reset = () => {
@@ -32,13 +32,13 @@ export default function Form(props) {
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
-            placeholder="Enter Student Name"
+            placeholder={props.student || "Enter Student Name"}
             value={student}
             onChange={changeHandler}
           />
         </form>
         <InterviewerList
-          interviewerId={interviewer}
+          interviewerId={interviewer} // this decides which interviewer is selected in the InterviewList
           interviewers={props.interviewers}
           onChange={setInterviewer}
         />
