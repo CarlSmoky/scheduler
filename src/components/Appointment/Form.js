@@ -14,6 +14,7 @@ export default function Form(props) {
 
   const cancel = () => {
     reset();
+    setError("");
     props.onCancel();
   };
 
@@ -29,7 +30,7 @@ export default function Form(props) {
       setError("Student name cannot be blank");
       return;
     }
-  
+    setError("");
     props.onSave(student, interviewer);
   }
 
