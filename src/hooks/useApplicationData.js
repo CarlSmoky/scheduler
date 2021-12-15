@@ -24,7 +24,7 @@ export default function useApplicationData() {
       const days = all[0].data;
       const appointments = all[1].data;
       const interviewers = all[2].data;
-      setState({...state, days, appointments, interviewers});
+      setState(prev => ({...prev , days, appointments, interviewers}));
       // console.log(interviewers);
     });
   }, []);
@@ -34,17 +34,20 @@ export default function useApplicationData() {
 
   function bookInterview(id, interview) {
     // update our appointment slot with new interview
+    console.log(id, interview.interviewer);
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }  // we are overwriting whatever was here before
+      interview: { ...interview }   // we are overwriting whatever was here before
     };
-
+    // let appointment = state.appointments[id];
+    // appointment.interview = interview;
+    // console.log(appointment, interview);
     // add our updated appointment to the appointments object
     const appointments = {
       ...state.appointments,
       [id]: appointment // overwrite the one appointment matching our id
     };
-
+    console.log(appointments);
     // we update state with the appointments
     // setState({
     //   ...state,
@@ -57,8 +60,8 @@ export default function useApplicationData() {
     return axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then(response => {
         // console.log(response)
-        setState({ ...state, appointments })
-        updateSpots(id, "decrease")
+        setState(prev => ({ ...prev, appointments }))
+        // updateSpots(id, "decrease")
       });
 
   }
@@ -106,8 +109,8 @@ export default function useApplicationData() {
     //Returning from bookInterview
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(response => {
-        setState({ ...state, appointments })
-        updateSpots(id, "increase");
+        setState(prev => ({ ...prev, appointments }))
+        // updateSpots(id, "increase");
       });
   }
 

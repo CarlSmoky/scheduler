@@ -21,7 +21,7 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
-  
+  console.log(props);
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -29,10 +29,10 @@ export default function Appointment(props) {
 
   function save(name, interviewer) {
     // this gets called, but the name and interviewer are undefined
-    // console.log("SAVE", name, interviewer);
+    console.log("SAVE", name, interviewer);
     const interview = {
       student: name,
-      interviewer
+      interviewer: interviewer
     };
     transition(SAVING);
     props.bookInterview(props.id, interview)
@@ -68,7 +68,7 @@ export default function Appointment(props) {
         )}
         {mode === CREATE && (
           <Form 
-            interviewers={getInterviewersForDay({...props.state}, props.state.day)}  
+            interviewers={props.interviewers}  
             onCancel={() => back()}
             onSave={save}
           />
@@ -78,7 +78,7 @@ export default function Appointment(props) {
         {mode === DELETING &&  <Status message={"Deleting"}/>}
         {mode === EDIT &&  (
           <Form 
-          interviewers={getInterviewersForDay(props.state, props.state.day)}  
+          interviewers={props.interviewers}
           onCancel={() => back()}
           onSave={save}
           student={props.interview.student}

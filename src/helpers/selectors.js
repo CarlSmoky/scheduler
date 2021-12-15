@@ -3,8 +3,8 @@
 // all the appointment objects for that day
 export function getAppointmentsForDay(state, day) {
   const days = state.days;
+  console.log("state.appointments-->", state.appointments);
   const appointments = Object.values(state.appointments || {} );
-
   const selectedDayArray = days.filter(aDay => aDay.name === day);
   if (selectedDayArray.length === 0) {
     return [];
@@ -19,12 +19,13 @@ export function getAppointmentsForDay(state, day) {
       }
     }
   }
+  console.log("2nd --state.appointments-->", state.appointments);
   return result;
 }
 
 export function getInterview(state, interview) {
   if (!interview) { return null };
-
+  console.log(state);
   const interviewers = state.interviewers;
   const interviewerId = interview.interviewer;
   const interviewer = interviewers[interviewerId];
