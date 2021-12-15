@@ -4,7 +4,7 @@ import InterviewerList from "../InterviewerList.js";
 
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer);
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
 
   const reset = () => {
@@ -43,7 +43,7 @@ export default function Form(props) {
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
-            placeholder={props.student || "Enter Student Name"}
+            placeholder={"Enter Student Name"}
             value={student}
             onChange={changeHandler}
             data-testid="student-name-input"
