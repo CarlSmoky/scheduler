@@ -5,7 +5,7 @@ import InterviewerList from "../InterviewerList.js";
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer ? props.interviewer.id : null);
-
+  const [error, setError] = useState("");
 
   const reset = () => {
     setStudent("");
@@ -19,10 +19,19 @@ export default function Form(props) {
 
   const save = () => {
     // student and interviewer are ok here, but don't get passed into onSave ???
-    props.onSave(student, interviewer);
+    validate();
   }
   
   const changeHandler = (event) => setStudent(event.target.value);
+
+  function validate() {
+    if (student === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+  
+    props.onSave(student, interviewer);
+  }
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -35,8 +44,10 @@ export default function Form(props) {
             placeholder={props.student || "Enter Student Name"}
             value={student}
             onChange={changeHandler}
+            data-testid="student-name-input"
           />
         </form>
+        <section className="appointment__validation">{error}</section>
         <InterviewerList
           interviewerId={interviewer} // this decides which interviewer is selected in the InterviewList
           interviewers={props.interviewers}
