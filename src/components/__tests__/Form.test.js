@@ -16,7 +16,6 @@ describe("Form", () => {
   ];
 
   
-  
   it("renders without student name if not provided", () => {
     const { getByPlaceholderText } = render(
       <Form interviewers={interviewers} />
@@ -110,7 +109,7 @@ describe("Form", () => {
     const { getByText, getByPlaceholderText, queryByText } = render(
       <Form
         interviewers={interviewers}
-        name="Lydia Mill-Jones"
+        student="Lydia Mill-Jones"
         onSave={jest.fn()}
         onCancel={onCancel}
       />
