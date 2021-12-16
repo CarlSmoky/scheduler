@@ -34,7 +34,7 @@ export default function useApplicationData() {
 
   function bookInterview(id, interview) {
     // update our appointment slot with new interview
-    console.log(id, interview.interviewer);
+    // console.log(id, interview.interviewer);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }   // we are overwriting whatever was here before
@@ -47,7 +47,7 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment // overwrite the one appointment matching our id
     };
-    console.log(appointments);
+    // console.log(appointments);
     // we update state with the appointments
     // setState({
     //   ...state,
