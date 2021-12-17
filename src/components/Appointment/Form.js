@@ -19,7 +19,6 @@ export default function Form(props) {
   };
 
   const save = () => {
-    // student and interviewer are ok here, but don't get passed into onSave ???
     validate();
   }
   
@@ -31,7 +30,6 @@ export default function Form(props) {
       return;
     }
     setError("");
-    // console.log(props.interviewers[interviewer], interviewer);
     props.onSave(student, interviewer);
   }
 
