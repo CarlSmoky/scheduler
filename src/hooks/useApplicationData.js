@@ -47,6 +47,9 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment // overwrite the one appointment matching our id
     };
+
+    const days = updateSpots(id, "decrease");
+    console.log(days);
     // console.log(appointments);
     // we update state with the appointments
     // setState({
@@ -60,7 +63,7 @@ export default function useApplicationData() {
     return axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then(response => {
         // console.log(response)
-        setState(prev => ({ ...prev, appointments }))
+        setState(prev => ({ ...prev, appointments, days}))
         // updateSpots(id, "decrease")
       });
 
@@ -85,11 +88,12 @@ export default function useApplicationData() {
     // put updated spots value in day
     const updatedDay = {...selectedDay, spots: count};
     // put updated day in days
-    const updatedDays = state.days;
+    const updatedDays = [...state.days];
     updatedDays[dayIndex] = updatedDay; 
 
     // set state with updated days
-    setState(prev => {return {...prev, days: updatedDays}});
+    // setState(prev => {return {...prev, days: updatedDays}});
+    return updatedDays;
   }
 
   function cancelInterview(id) {
@@ -105,11 +109,13 @@ export default function useApplicationData() {
       [id]: appointment // overwrite the one appointment matching our id
     };
 
+    const days = updateSpots(id, "increase");
+
     // PUT /api/appointments/:id 
     //Returning from bookInterview
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(response => {
-        setState(prev => ({ ...prev, appointments }))
+        setState(prev => ({ ...prev, appointments, days }))
         // updateSpots(id, "increase");
       });
   }
