@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {getAppointmentsForDay} from "../helpers/selectors"
 
 export default function useApplicationData() {
   const [state, setState] = useState({
@@ -25,7 +24,6 @@ export default function useApplicationData() {
       const appointments = all[1].data;
       const interviewers = all[2].data;
       setState(prev => ({...prev , days, appointments, interviewers}));
-      // console.log(interviewers);
     });
   }, []);
 
@@ -34,14 +32,10 @@ export default function useApplicationData() {
 
   function bookInterview(id, interview) {
     // update our appointment slot with new interview
-    // console.log(id, interview.interviewer);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }   // we are overwriting whatever was here before
     };
-    // let appointment = state.appointments[id];
-    // appointment.interview = interview;
-    // console.log(appointment, interview);
     // add our updated appointment to the appointments object
     const appointments = {
       ...state.appointments,
@@ -49,22 +43,10 @@ export default function useApplicationData() {
     };
 
     const days = updateSpots(id, "decrease");
-    console.log(days);
-    // console.log(appointments);
-    // we update state with the appointments
-    // setState({
-    //   ...state,
-    //   appointments
-    // });
-
-    // console.log(id, interview);
-    // PUT /api/appointments/:id 
-    //Returning from bookInterview
+  
     return axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then(response => {
-        // console.log(response)
         setState(prev => ({ ...prev, appointments, days}))
-        // updateSpots(id, "decrease")
       });
 
   }
@@ -77,7 +59,6 @@ export default function useApplicationData() {
       if (state.days[index].appointments.includes(id)) {
         selectedDay = state.days[index];
         dayIndex = index;
-        // console.log(selectedDay);
       }
     }
 
@@ -91,8 +72,6 @@ export default function useApplicationData() {
     const updatedDays = [...state.days];
     updatedDays[dayIndex] = updatedDay; 
 
-    // set state with updated days
-    // setState(prev => {return {...prev, days: updatedDays}});
     return updatedDays;
   }
 
@@ -116,7 +95,6 @@ export default function useApplicationData() {
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(response => {
         setState(prev => ({ ...prev, appointments, days }))
-        // updateSpots(id, "increase");
       });
   }
 
