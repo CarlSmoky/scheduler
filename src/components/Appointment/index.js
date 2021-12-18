@@ -80,7 +80,7 @@ export default function Appointment(props) {
           onCancel={() => back()}
           onSave={save}
           student={props.interview.student}
-          interviewer={props.interview.interviewer}
+          interviewer={props.interview.interviewer.id}
         />
         )}
         {mode === ERROR_SAVE && <Error 
