@@ -27,7 +27,6 @@ export default function Appointment(props) {
 
   function save(name, interviewer) {
     // this gets called, but the name and interviewer are undefined
-    // console.log("SAVE", name, interviewer);
     const interview = {
       student: name,
       interviewer: interviewer
