@@ -30,7 +30,7 @@ export default function useApplicationData() {
   const setDay = day => setState({ ...state, day });
 
 
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, context) {
     // update our appointment slot with new interview
     const appointment = {
       ...state.appointments[id],
@@ -42,7 +42,8 @@ export default function useApplicationData() {
       [id]: appointment // overwrite the one appointment matching our id
     };
 
-    const days = updateSpots(id, "decrease");
+    const updateType = context === "CREATE" ? "decreaseSpots" : "noSpotChange"
+    const days = updateSpots(id, updateType);
   
     return axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then(response => {
@@ -64,7 +65,12 @@ export default function useApplicationData() {
 
     // modify spots value
     let count = selectedDay.spots;
-    count += updateType === "decrease" ? -1 : 1
+    if (updateType === "decreaseSpots") {
+      count--;
+    } else if (updateType === "increaseSpots") {
+      count++;
+    }
+   
 
     // put updated spots value in day
     const updatedDay = {...selectedDay, spots: count};
@@ -88,7 +94,7 @@ export default function useApplicationData() {
       [id]: appointment // overwrite the one appointment matching our id
     };
 
-    const days = updateSpots(id, "increase");
+    const days = updateSpots(id, "increaseSpots");
 
     // PUT /api/appointments/:id 
     //Returning from bookInterview

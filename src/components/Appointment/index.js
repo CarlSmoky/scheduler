@@ -32,8 +32,9 @@ export default function Appointment(props) {
       student: name,
       interviewer: interviewer
     };
+    const context = mode;
     transition(SAVING);
-    props.bookInterview(props.id, interview)
+    props.bookInterview(props.id, interview, context)
       .then(res => { transition(SHOW)} )
       .catch(error => {
         console.log(error);
@@ -80,7 +81,7 @@ export default function Appointment(props) {
           onCancel={() => back()}
           onSave={save}
           student={props.interview.student}
-          interviewer={props.interview.interviewer.id}
+          interviewer={props.interview.interviewer ? props.interview.interviewer.id : null}
         />
         )}
         {mode === ERROR_SAVE && <Error 
