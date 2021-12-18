@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+Interviewer scheduler is a one page application built with React using Jest, Storybook, and Cypress.
+
 ## Final Product
 
 !["Screenshot of full page"](https://github.com/CarlSmoky/scheduler/blob/master/docs/Full_size.png?raw=true)
