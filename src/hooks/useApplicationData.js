@@ -10,10 +10,15 @@ export default function useApplicationData() {
   });
 
   useEffect(() => {
+    // const endpoints = {
+    //   "GET_DAYS": "https://scheduler-k.herokuapp.com/api/days",
+    //   "GET_APPOINTMENTS": "https://scheduler-k.herokuapp.com/api/appointments/",
+    //   "GET_INTERVIEWERS": "https://scheduler-k.herokuapp.com/api/interviewers/"
+    //   }
     const endpoints = {
-      "GET_DAYS": "http://localhost:8001/api/days",
-      "GET_APPOINTMENTS": "http://localhost:8001/api/appointments",
-      "GET_INTERVIEWERS": "http://localhost:8001/api/interviewers"
+      "GET_DAYS": `api/days`,
+      "GET_APPOINTMENTS": `api/appointments/`,
+      "GET_INTERVIEWERS": `api/interviewers/`
       }
     Promise.all([
       axios.get(endpoints.GET_DAYS),
@@ -45,7 +50,7 @@ export default function useApplicationData() {
     const updateType = context === "CREATE" ? "decreaseSpots" : "noSpotChange"
     const days = updateSpots(id, updateType);
   
-    return axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
+    return axios.put(`api/appointments/${id}`, { interview })
       .then(response => {
         setState(prev => ({ ...prev, appointments, days}))
       });
@@ -98,7 +103,7 @@ export default function useApplicationData() {
 
     // PUT /api/appointments/:id 
     //Returning from bookInterview
-    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+    return axios.delete(`api/appointments/${id}`)
       .then(response => {
         setState(prev => ({ ...prev, appointments, days }))
       });
